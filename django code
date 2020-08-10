@@ -1,0 +1,323 @@
+------------------------core base.html------------------------------------
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+    <link rel="stylesheet" href="{% static 'core/css/all.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.css' %}">
+    {% block corecss %}
+
+    <link rel="stylesheet" href="{% static 'core/css/core.css' %}">
+    {% endblock corecss %}
+
+
+</head>
+
+<body>
+    <div class="container-flude bg-dark">
+        <div class="row">
+            <div class="col-sm.2">
+                {% include 'core/sidebar.html' %}
+
+            </div>
+            <div class="col-sm-10">
+                {% block content %}   {% endblock content %}
+                <h6 class="text-white">Main content</h6>
+            </div>
+        </div>
+        
+    </div>
+  
+    <script src="{% static 'core/js/bootstrap.js' %}"></script>
+    <script src="{% static 'core/js/popper.js' %}"></script>
+    <script src="{% static 'core/js/jquery.js' %}"></script>
+    <script src="{% static 'core/js/all.min.js' %}"></script>
+</body>
+</html>
+
+---------------------core home.html----------------------------------
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %} 
+<div class="mt-3 ">
+    <div class="text-center">
+    <img src="{% static 'core/images/pic.jpg' %}" alt="ProfilePic"
+    class="img-thumbnail" width="200px" height="110px">
+    </div>
+    <div class="mt-2 text-white mx-5 text-justify">
+    <h1 class="font-weight-bold">Hello</h1>
+    <div>
+        <p>
+            <div class="text-white">
+                I am <b class="text-warning">Dheeraj Patil </b>
+                , Post Graduate in Electronics field, 3 Yr plus relevant experiences in Electronics, Teaching and Sales. Good
+                Knowledge of programming languages and tools. Experience with lead generation and prospect
+                management. Adept at forging partnerships to create strategic benefits. Looking forward to apply the
+                acquired gamut of skills to a challenging role.
+            </div>
+           
+        </p>
+    </div>
+    </div>
+    <div class="text-canter">
+    <a href="{% url 'contact' %}" class="btn btn-outline-warning my-3 mr -5">Hire Me</a>
+    <a href="{% url 'contact' %}" class="btn btn-outline-info my-3">Contact</a>
+    <a href="" class="btn btn-outline my-3"></a>
+    </div>
+
+</div>
+
+{% endblock content %}
+
+----------------------core contact.html------------------------------
+
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-warning mb-5 border-bottom">Contact Us</h1>
+    <div class="row text-white mb-5">
+        <p class="mx-auto mb-">Do you have any Questions? please do not hesitated to Contact. I will come back to for your help.</p>
+    <div class="col-sm-9 mb-5">
+        <form action="">
+            <div class="form-now">
+                <div class="form-group col-mb-3">
+                    <label for="input name">Your Name</label>
+                    <input type="text" class="form-control" id="inputName"/>
+                </div>
+                <div class="form-group col-mb-6">
+                    <label for="input name">Your Email</label>
+                    <input type="text" class="form-control" id="inputEmail"/>
+                </div>
+                <div class="form-group col-mb-6">
+                    <label for="input name">Your Subject</label>
+                    <input type="text" class="form-control" id="inputSubject"/>
+                </div>
+                <div class="form-group col-mb-6">
+                    <label for="input name">Your Messeage</label>
+                    <input type="text" class="form-control" id="inputMesseage"/>
+                </div>
+                <button class="btn btn-primary" type="submit">Send</button>
+            </div>
+        </form>
+        <div class="col-sm-5 mt-5    text center">
+            <ul class="list-unstyled">
+                <li>
+                    <i class="fas fa-map-marker-alt fa-2x i-color"></i>
+                    <p class="text-white">Sangli Maharashtra India</p>
+                </li>
+                <li>
+                    <i class="fas fa-phone mt-4 fa-2x i-color"></i>
+                    <p class="text-white">+91 9588601894</p>
+                </li>
+                <li>
+                    <i class="fas fa-envelope mt-4 fa-2x i-color"></i>
+                    <p class="text-white">dheerajpatil06@gmail.com</p>
+                </li>
+            </ul>
+        </div>
+        <div class="text-center">
+            <a href="#"><i class="fab fa-instagram mt-4 fa-2x"></i></a>
+            <a href="#"><i class="fab fa-facebook mt-4 fa-2x"></i></a>
+            <a href="#"><i class="fab fa-whatsapp mt-4 fa-2x"></i></a>
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+    {% endblock content %}
+
+------------------------------------- core sidebar.html --------------------------------------------
+{% load static %}
+<div class="border-right border-warning h-100">
+                <div  class="text=center">
+                    <img src="{%static 'core/images/pic.jpg' %}" alt="ProfilePic" class="img-fluid rounded-circle mt-5"
+                    width ="100px", height="100px">
+                    
+                    
+                </div>
+                <hr class ="border-light">
+                <h3 class=" text-white mb-10">Dheeraj Patil</h3>
+                <nav class="nav-flex-coloum test-center">
+                    <a href="{% url 'home' %}" class="nav-link active {{home}}">Home</a>
+                    <a href="{% url 'services' %}"class="nav-link {{services}}">Services</a>
+                    <a href="{% url 'skill' %}"class="nav-link {{skill}}">Skill</a>
+                    <a href="{% url 'contact' %}"class="nav-link{{skill}}">Contact</a>
+                </nav>
+            </div>
+------------------------------------- core views.py------------------------------------
+
+from django.shortcuts import render
+
+# Create your views here.
+def home(request):
+    context = {'home': 'active'}
+    return render(request, 'core/home.html', context)
+def contact(request):
+    context = {'contact' : 'active'}
+    return render(request, 'core/contact.html', context)
+    ---------------------------------------------edu skill.html-----------------------------------
+    {% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-warning mb-5 border-bottom">Skills</h1>
+    <div class="row text-white mb-5">
+        <div class="col sm-2">
+            <h3>HTML/CSS</h3>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width:75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                >75%</div>
+            </div>
+        </div>
+        <div class="col sm-2">
+            <h3>JavaScript</h3>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width:70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+                >70%</div>
+            </div>
+        </div>
+        <div class="col sm-2">
+            <h3>Python</h3>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width:85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"
+                >85%</div>
+            </div>
+        </div>
+    
+        <div class="col sm-2">
+            <h3>Djnago</h3>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width:85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"
+                >85%</div>
+            </div>
+        </div>
+        
+        <div class="col sm-2">
+            <h3>SQL</h3>
+            <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" style="width:80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+                >80%</div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+
+
+   {% endblock content %}
+   
+   ------------------------------ edu views.py---------------------------------
+   from django.shortcuts import render
+
+# Create your views here.
+from django.shortcuts import render
+
+# Create your views here.
+def skill(request):
+    context = {'skill': 'active'}
+    return render(request, 'edu/skill.html', context)
+-------------------------------resumeproject main url---------------------------
+"""resumeproject URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path, include
+from core import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.home, name="home"),
+    path('contact/', views.contact, name="contact"),
+    path('serv/', include('serv.urls')),
+    path('edu/', include('edu.urls')),
+]
+----------------------------serv service.html---------------------------------
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container mt-2">
+    <h1 class="text-warning mb-5 border-bottom">Services</h1>
+
+    <div class="col  text-center text-white mb-5">
+        <div class="col-sm-2"></div>
+        <i class="fas fa-search-dollar fa-2x mb-3 i-colo"></i>
+        <h4>SEO</h4>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+    </div>
+    <div class="col  text-center text-white mb-5">
+        <div class="col-sm-2"></div>
+        <i class="fab fa-adn fa-2x mb-3 i-colo"></i>
+        <h3>Web Design</h3>
+        <p>
+            Designing the various style of web sites
+            </p>
+    </div>
+    <div class="col  text-center text-white mb-5">
+        <div class="col-sm-2"></div>
+        <i class="fab fa-adversal fa-2x mb-3 i-colo"></i>
+        <h3>Web Development</h3>
+        <p>
+            Development of WebSites on your requirments
+
+            </p>
+    </div>
+    <div class="col  text-center text-white mb-5">
+        <div class="col-sm-2"></div>
+        <i class="fab fa-stripe-s fa-2x mb-3 i-colo"></i>
+        <h4>SFDC Management</h4>
+        <p>
+            Maintaing Lead tracker on SFDC
+            </p>
+    </div>
+    <div class="col  text-center text-white mb-5">
+        <div class="col-sm-2"></div>
+        <i class="fas fa-street-view fa-2x mb-3 i-colo"></i>
+        <h3>Consultant</h3>
+        <p>
+            Consultanting 
+            </p>
+    </div>
+    <div class="col  text-center text-white mb-5">
+        <div class="col-sm-2"></div>
+        <i class="fas fa-laptop-medical fa-2x mb-3 i-colo"></i>
+        <h3>Embedded</h3>
+        <p>
+            Embedded Design and Development
+
+            </p>
+    </div>
+    
+</div>
+{% endblock content %}
+
+-------------------------------- serv views.py---------------------------
+from django.shortcuts import render
+
+# Create your views here.
+def services(request):
+    context = {'services':'active'}
+    return render(request, 'serv/services.html', context)
+    
